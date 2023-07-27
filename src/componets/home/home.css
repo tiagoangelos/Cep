@@ -1,10 +1,12 @@
 .container{
+	width: 100%;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-content: center;
+	align-items: center;
 	flex-direction: column;
-	background: linear-gradient(#121212, #212b46);
+	background: linear-gradient(#212b46, #151b2a);
 }
 
 .title{
@@ -24,9 +26,12 @@
 }
 
 .containerInput{
-	background: transparent;
-	padding: 15px;
-	margin: 34px 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 470px;
+	padding: 1rem;
+	margin: 1rem;
 	border-radius: 8px;
 	box-shadow: 1px 3px 8px rgb(0, 0, 0, 0.5);
 }
@@ -34,7 +39,7 @@
 .containerInput input{
 	background-color: transparent;
 	border: 0;
-	font-size: 25px;
+	font-size: x-large;
 	color: whitesmoke;
 	outline: none;
 	margin-right: 8px;
@@ -57,44 +62,71 @@
 	transform: scale(1.2);
 }
 
-.main{
-	align-self: center;
-	display: flex;
+.span-message {
+	display: none;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
+	padding-bottom: 0.5rem;
+}
+
+.span-message .icon-span {
+	font-size: x-large;
+	color: rgb(210, 41, 41);
+}
+
+.span-message span {
+	padding: 0.5rem;
+	font-size: large;
+	color: rgb(199, 197, 197);
+}
+
+.main{
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1rem;
 	flex-direction: column;
 	background-color: white;
-	width: 500px;
+	width: 510px;
 	border-radius: 10px;
 }
 
 .main h2{
 	margin: 16px 0;
-	font-size: 30px;
+	font-size: xx-large;
+	font-weight: bolder;
+	color: #232834;
 }
 
 .main span{
 	margin-bottom: 16px;
-	font-weight: bold;
+	font-size: large;
+	font-weight: bolder;
+	color: #232834;
 }
 
 
-
-/*TELAS DE CELULARES - ATÉ 450 Pixel____________________________*/
-@media (max-width: 450px){
+/*Smartphone: */
+@media(max-width: 930px) {
 	.title{
 		font-size: 40px;
 	}
-
-	.main h2{
-		font-size: 15px;
-	}
-
+	
 	.containerInput{
-		font-size: 15px;
+		padding: 1rem;
+		margin: 1rem;
+		width: 90%;
 	}
 
 	.containerInput input{
-		font-size: 15px;
+		width: 90%;
+	}
+
+	.main{
+		padding: 1rem;
+		margin: 1rem;
+		width: 90%;
 	}
 }

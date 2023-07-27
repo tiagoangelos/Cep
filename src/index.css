@@ -1,5 +1,7 @@
-*{
-  margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Arvo&display=swap');
+
+body, html {
   padding: 0;
-  font-family: sans-serif;
+  margin: 0;
+  font-family: 'Arvo', serif;
 }
