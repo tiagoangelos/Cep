@@ -15,9 +15,34 @@ function Home() {
     const uf = document.querySelector('.uf');
     const ddd = document.querySelector('.ddd');
     const ibge = document.querySelector('.ibge');
+    const input = document.querySelector('.input');
+    const buttonSearch = document.querySelector('.buttonSearch');
+    const progress = document.querySelector('.progress');
+    const progressBar = document.querySelector('.progress .progress-bar');
 
     //take value
     const [search, setSearch] = useState('');
+
+    //Loading
+    const loading = () => {
+        progress.style.display = 'flex';
+        progressBar.style.width = '25%';
+        progressBar.innerText = '25%';
+
+        //disabled search
+        input.disabled = true;
+        buttonSearch.disabled = true;
+    }
+
+    //Loading Finish
+    const loadingFinish = () => {
+        progress.style.display = 'none';
+        progressBar.style.width = '0%';
+        
+        //disabled search
+        input.disabled = false;
+        buttonSearch.disabled = false;
+    }
 
     //erro Input null
     const inputNull = () => {
@@ -39,6 +64,11 @@ function Home() {
         if(data.erro === true){
             spanMessage.style.display = 'flex';
             span.innerText = 'Cep Não Encontrado!';
+
+            //loading
+            progressBar.style.width = '100%';
+            progressBar.innerText = '100%';
+            setTimeout(loadingFinish, 1500); 
         }
 
         return data
@@ -57,6 +87,10 @@ function Home() {
     const insertInThePage = (data) => {
         noResult(data); //verify cep was found
 
+        //loading
+        progressBar.style.width = '75%';
+        progressBar.innerText = '75%'; 
+
         cep.textContent = `CEP: ${unavailable(data.cep)}`;
         localidade.textContent = `LOCALIDADE: ${unavailable(data.localidade)}`;
         logradouro.textContent = `LOGRADOURO: ${unavailable(data.logradouro)}`;
@@ -65,10 +99,18 @@ function Home() {
         uf.textContent = `UF: ${unavailable(data.uf)}`;
         ddd.textContent = `DDD: ${unavailable(data.ddd)}`;
         ibge.textContent = `IBGE: ${unavailable(data.ibge)}`;
+
+        //loading
+        progressBar.style.width = '100%';
+        progressBar.innerText = '100%';
+        setTimeout(loadingFinish, 1500); 
     }
 
     //request api
     const requestApi = async (search) => {
+        //loading
+        loading();
+
         //api public
         const viaCep = 'https://viacep.com.br/ws';
         
@@ -80,6 +122,11 @@ function Home() {
         .catch(function(error){
             spanMessage.style.display = 'flex';
             span.innerText = 'Error De Conexão Com Api :(';
+
+            //loading
+            progressBar.style.width = '100%';
+            progressBar.innerText = '100%';
+            setTimeout(loadingFinish, 1500); 
         })
     }
 
@@ -120,6 +167,7 @@ function Home() {
 
                 <div className="containerInput" width="28" height="15" align="center">
                     <input
+                        className='input'
                         required="required"
                         autoComplete='on'
                         autoFocus
@@ -128,9 +176,10 @@ function Home() {
                         placeholder="Cep ex: 58010000"
                         onChange={(event) => setSearch(event.target.value)}
                         onKeyPress={handleKeyPress}
+                        disabled={false}
                     />
 
-                    <button className="buttonSearch" onClick={getValue}>
+                    <button className="buttonSearch" onClick={getValue} disabled={false}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="55px" height="25px" color="blue" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                         </svg>
@@ -140,6 +189,10 @@ function Home() {
                 <div className='span-message'>
                     <BiSolidCommentError className='icon-span' /> 
                     <span className='span'></span>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">0%</div>
                 </div>
                 
                 <main className='main'>
